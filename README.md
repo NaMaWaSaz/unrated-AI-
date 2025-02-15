@@ -29,7 +29,7 @@
 3. **Generate AI-powered content** (text, images, videos).
 4. **Display insights in a web dashboard** for user interaction.
 5. **Automate data updates and content generation** through N8N.
-6. ![Social Spark Dashboard](https://your-image-url.com/image.png)
+6. 
 
 
 ## 🏆 Achievements
