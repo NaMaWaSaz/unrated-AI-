@@ -1,0 +1,103 @@
+[
+    {
+      "name": "_ga",
+      "value": "GA1.2.293692855.1739384592",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "_ga_RJGMY4G45L",
+      "value": "GS1.1.1739384669.1.0.1739384679.50.0.0",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920669,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "_gid",
+      "value": "GA1.2.1177106516.1739384592",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "auth_token",
+      "value": "5c2497ae3d56396c46c368480fab37456ded61b9",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": true
+    },
+    {
+      "name": "ct0",
+      "value": "6dec4c1840155162b3dd786f8630c952a4a49d54f7721d0715",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "des_opt_in",
+      "value": "N",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "external_referer",
+      "value": "padhuUp37jzgzv1mFWxJ12Ozwit7owX|0|8e8t2xd8A2w%3D",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "g_state",
+      "value": "{\"i\":0}",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "guest_id",
+      "value": "173368535060506272",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "guest_id_ads",
+      "value": "v1%3A173368553060506272",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    },
+    {
+      "name": "guest_id_marketing",
+      "value": "v1%3A173368553060506272",
+      "domain": ".x.com",
+      "path": "/",
+      "expires": 1760920592,
+      "secure": true,
+      "httpOnly": false
+    }
+  ]
+  

@@ -1,0 +1,102 @@
+{
+    "tweets": [
+      {"id": 1, "text": "Just deployed my first web app! 🚀 Learning never stops. #WebDevelopment #CodeNewbie"},
+      {"id": 2, "text": "AI is not here to replace us, but to assist us. Embrace the future! 🤖✨ #ArtificialIntelligence"},
+      {"id": 3, "text": "Debugging: The process of fixing the problems you created while fixing other problems. #DevLife"},
+      {"id": 4, "text": "Success is not final, failure is not fatal: it is the courage to continue that counts. #Motivation"},
+      {"id": 5, "text": "Why do programmers prefer dark mode? Because light attracts bugs. 🐞😂 #ProgrammingHumor"},
+      {"id": 6, "text": "Started learning Flutter today! Mobile app development, here I come! 📱💻 #FlutterDev"},
+      {"id": 7, "text": "The best investment you can make is in yourself. Keep learning and growing! 📚🚀 #SelfImprovement"},
+      {"id": 8, "text": "Trying to center a div in CSS is a life-long battle. #WebDevStruggles"},
+      {"id": 9, "text": "Blockchain is more than just crypto. The future of decentralized applications is here! 🔗 #Web3"},
+      {"id": 10, "text": "Coding is like magic, but instead of spells, we use loops and conditionals. 🧙‍♂️✨ #CodingLife"},
+      {"id": 11, "text": "Your network is your net worth. Build connections, learn, and grow together! 🌍🤝 #Networking"},
+      {"id": 12, "text": "Machine learning models are only as good as the data they are trained on. Garbage in, garbage out! #DataScience"},
+      {"id": 13, "text": "Remember: The internet never forgets. Think twice before you post! 🌍💡 #DigitalWisdom"},
+      {"id": 14, "text": "Weekend goal: No meetings, just coding. 🚀💻 #ProductivityMode"},
+      {"id": 15, "text": "A day without coffee is like... just kidding, I have no idea. ☕😂 #CoffeeLover"},
+      {"id": 16, "text": "Happiness is compiling code without errors. 🎉 #DeveloperLife"},
+      {"id": 17, "text": "The key to success? Persistence, learning, and a bit of caffeine. 🚀☕ #SuccessMindset"},
+      {"id": 18, "text": "JavaScript: Where 1 + '1' = '11' and nobody questions it. 🤔😂 #JSFun"},
+      {"id": 19, "text": "Small progress is still progress. Keep pushing forward! 💪🔥 #StayMotivated"},
+      {"id": 20, "text": "AI-generated tweets are taking over! Wait... did I write this, or did AI? 🤖 #FutureIsNow"} , 
+      {"id": 1, "text": "Trump Administration Takes Back $80 Million In FEMA Money From NYC’s Bank Accounts, City Alleges: ‘Highway Robbery’"},
+      {"id": 2, "text": "Met USA’s Director of National Intelligence, @TulsiGabbard in Washington DC. Congratulated her on her confirmation. Discussed various aspects of the India-USA friendship, of which she’s always been a strong votary."},
+          {"id": 3, "text": "Reuters was paid millions of dollars by the US government for 'large scale social deception'. That is literally what it says on the purchase order! They’re a total scam. Just wow."},
+          {"id": 4, "text": "🇺🇸 DOD PAID REUTERS $9M FOR 'SOCIAL ENGINEERING' PROGRAM. DOGE investigations reveal mysterious Defense Department payments to Reuters for 'large scale social deception' project between 2018-2022. While DARPA claims it was for cyber defense, questions swirl about why a news agency received millions for 'social engineering.' The revelation comes as other media outlets face scrutiny over federal funding."},
+          {"id": 5, "text": "Chuck Schumer says, 'everyone knows there's waste in government that should be cut, but DOGE is using a meat axe.' Thoughts?"},
+          {"id": 6, "text": "Narendra Modi @narendramodi · 2h It was also a delight to meet Mr. @elonmusk’s family and to talk about a wide range of subjects!"},
+          {"id": 7, "text": "Breaking! Judge John Bates wife gets funded by USAID! This is a serious conflict of interest since her funding relies on the Trump admin! Recall Bates is the judge who ordered the Trump admin to restore website info on gender ideology and sex change operations. His wife, Carol Rhees, is the founder of Hope For Children in Ethiopia. And has been a very long term recipient of USAID."},
+          {"id": 8, "text": "Hope for Children, ran by the judge’s wife, has been funded by USAID long term. I’m not saying it’s wrong, because the NGO does good things. And I hope the funding stays. But, this judge John Bates has no business being involved in these lawfare cases. It’s a conflict of interest."},
+          {"id": 9, "text": "BREAKING: The U.S. confirms Ukraine will NOT join NATO and NO U.S. troops will be deployed to Ukraine."},
+          {"id": 10, "text": "$300 million worth of medications are sitting on pallets about to expire thanks to Trump's effort to gut foreign aid. These drugs would've prevented people from going blind from a preventable tropical disease—Donald Trump would rather waste them in an East African warehouse."},
+          {"id": 11, "text": "Paris FC moving to a stadium just 20 metres from PSG—one of the closest rivalries in football! 👀🏟️"},
+          {"id": 12, "text": "The U.S. House Committee on Oversight and Accountability's Subcommittee on Delivering on Government Efficiency (DOGE), chaired by Marjorie Taylor Greene, has reported uncovering $2.7 trillion in improper Medicare and Medicaid payments since 2003. These payments were distributed to ineligible recipients overseas. The findings come from recent hearings focusing on government waste and inefficiency, prompting calls for reforms to prevent future discrepancies."},
+          {"id": 13, "text": "Following Bianca's controversial near-nude appearance at the Grammys. The couple married in December 2022 and their split has been linked to recent public controversies surrounding Kanye West's actions and statements."},
+          {"id": 14, "text": "CNBC @CNBC U.S. government wants to move conversation around UFOs from speculation to science."}
+        ] , 
+      
+
+      
+    
+    "tiktok_posts": [
+      {"id": 1, "description": "Epic touchdown celebration! 🏈🔥 #SuperBowl #Touchdown #GameDay", "hashtags": ["#SuperBowl", "#Touchdown", "#GameDay"]},
+      {"id": 2, "description": "Behind the scenes at the Super Bowl halftime show! 🎤🏈 #SuperBowlHalftime #MusicAndSports", "hashtags": ["#SuperBowlHalftime", "#MusicAndSports"]},
+      {"id": 3, "description": "Top 5 plays from the big game! 🏈📺 #SuperBowlHighlights #FootballFanatic", "hashtags": ["#SuperBowlHighlights", "#FootballFanatic"]},
+      {"id": 4, "description": "DIY Super Bowl snacks that will wow your guests! 🍔🍕 #SuperBowlSnacks #PartyIdeas", "hashtags": ["#SuperBowlSnacks", "#PartyIdeas"]},
+      {"id": 5, "description": "Recreating the most memorable Super Bowl commercials! 🎬😂 #SuperBowlAds #Throwback", "hashtags": ["#SuperBowlAds", "#Throwback"]},
+      {"id": 6, "description": "Fan reactions to the game-winning touchdown! 🏈🎉 #FootballFans #LastMinuteVictory", "hashtags": ["#FootballFans", "#LastMinuteVictory"]},
+      {"id": 7, "description": "Super Bowl party dance-off! 🕺🏽💃🏽 #SuperBowlParty #DanceChallenge", "hashtags": ["#SuperBowlParty", "#DanceChallenge"]},
+      {"id": 8, "description": "Predicting the Super Bowl winner using Madden NFL! 🎮🏈 #MaddenPredicts #Gaming", "hashtags": ["#MaddenPredicts", "#Gaming"]},
+      {"id": 9, "description": "Customizing my football jersey for the big game! 👕🏈 #DIYJersey #FootballFashion", "hashtags": ["#DIYJersey", "#FootballFashion"]},
+      {"id": 10, "description": "Teaching my pet to fetch like a football pro! 🐶🏈 #PetTraining #FootballPet", "hashtags": ["#PetTraining", "#FootballPet"]} , 
+    
+      
+        
+          {
+            "id": 1,
+            "description": "\"I want to perform their favorite song, but you know they love to sue\" - Kendrick Lamar, Super Bowl halftime show 🏈 🎥 @NFL @Apple Music",
+            "hashtags": ["#superbowl", "#halftimeshow", "#kendricklamar", "#kdot", "#kendrick", "#superbowl2025", "#nfl", "#disstrack", "#notlikeus", "#drake"]
+          },
+          {
+            "id": 2,
+            "description": "Replying to @NFL THEY NOT LIKE US (part 2) #KendrickLamar #AppleMusicHalftime #superbowl",
+            "hashtags": ["#KendrickLamar", "#AppleMusicHalftime", "#superbowl"],
+            "mentions": ["@Apple Music", "@Roc Nation"]
+          },
+          {
+            "id": 3,
+            "description": "In a dramatic Merseyside derby, Everton's Abdoulaye Doucoure's provocative celebration sparked a massive brawl with Liverpool players, resulting in red cards for Doucoure, Curtis Jones, and Liverpool's coaching staff.",
+            "hashtags": ["#MerseysideDerby", "#FootballFrenzy", "#SoccerDrama", "#PremierLeague", "#RivalryReignited", "#GameDayChaos", "#SportsShowdown", "#MatchMayhem", "#GoalDrama", "#StadiumScuffle"]
+          },
+          {
+            "id": 4,
+            "description": "Manchester City v Real Madrid football match at the Etihad Stadium",
+            "hashtags": ["#omarmarmoush", "#manchestercity", "#mancity", "#RealMadrid", "#championsleague", "#ucl", "#footballtiktok", "#Soccer", "#footballhighlights", "#brahimdiaz", "#footballskills", "#goal", "#sports", "#uefa", "#etihadstadium", "#footballfans", "#premierleague", "#laliga", "#egypt", "#footballmatch"]
+          },
+          {
+            "id": 5,
+            "description": "I'm back next game 🥶🔥",
+            "hashtags": ["#manchestercity", "#citizens💙", "#mancity💙", "#fouryou", "#fyp"],
+            "sound": "original sound - 𝘼𝙝𝙢𝙚𝙩𝙩_💙🦅"
+          },
+          {
+            "id": 6,
+            "description": "Mbappé, Vini & Bellingham’s reaction 💀😅",
+            "hashtags": ["#UCL", "#ManchesterCityvsRealMadrid"]
+          },
+          {
+            "id": 7,
+            "description": "Getting response from Vini was the best thing that happened last night as a Citizens! 😂",
+            "hashtags": ["#manchestercityvsrealmadrid", "#playoffs", "#vinijunior", "#championsleague"],
+            "mentions": ["@Manchester City", "@Real Madrid C.F.", "@Vini Jr."]
+          },
+          {
+            "id": 8,
+            "description": "Real Madrid 1-1 Man City⚽",
+            "hashtags": ["#footballtiktok", "#soccer", "#fyp", "#skills", "#neymar", "#realmadrid", "#manchestercity", "#mancity", "#mbappe", "#goal", "#championsleague", "#ucl", "#live", "#reaction", "#haaland", "#bellingham", "#vinijr"]
+          }
+        ]
+      }
+      
+    

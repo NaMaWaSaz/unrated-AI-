@@ -1,0 +1,1005 @@
+{
+  "name": "Tiktok&Xautomation post",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization ",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a YouTube video script writer. Your task is to convert a video category into an interesting story.\\n\\nDuration of the video: 30 seconds\\nTone: Interesting storytelling.\\n\\n***Text only, without any guiding text.\\n***Don't add any closing scene, opening scene, or action text. Only voice-over Text.\"\n    },\n    \n    {\"role\": \"user\", \"content\": \"{{ $json['Video Category'] }}\"}\n  ],\n  \"temperature\": 0.8,\n  \"max_tokens\": 120,\n  \"stream\": false\n}\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        480,
+        -80
+      ],
+      "id": "636768bb-3e52-496e-9703-1ded92f0dd2a",
+      "name": "Groq",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        120,
+        -300
+      ],
+      "id": "392f7c3f-03ff-4d69-9a43-643192d8c459",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "4aadfb8b-1add-4ec3-815d-0f2389f23082",
+              "name": "Video Category",
+              "value": "={{ $json.hashtags }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        -300
+      ],
+      "id": "839e47cc-298d-4891-aaf7-140640d5463c",
+      "name": "Video Category"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        20
+      ],
+      "id": "d3a75e68-d9fc-4074-8e4f-62204267a1f8",
+      "name": "Wait",
+      "webhookId": "bd99a112-793b-444e-8021-457b6494234c"
+    },
+    {
+      "parameters": {
+        "jsCode": "const responseData = $json[\"data\"];\n\n// Extract the last event that contains the final result\nconst completedEventRegex = /event: completed\\s+data: ({.*?})\\s+/s;\nconst match = responseData.match(completedEventRegex);\n\nif (match) {\n    const jsonData = JSON.parse(match[1]); // Parse JSON from matched string\n\n    return [{\n        url: jsonData.url || null,\n        duration: jsonData.duration || null,\n        size: jsonData.size || null\n    }];\n} else {\n    return [{\n        url: null,\n        duration: null,\n        size: null\n    }];\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        20
+      ],
+      "id": "bd7cc3e4-7fe7-47f8-ad2b-dadb21d05dc0",
+      "name": "extract url playht"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the first input item (assuming it's an array)\nconst inputData = $input.all();\n\n// Extract messages from all items\nconst output = inputData.map(item => {\n  if (item.json.choices && Array.isArray(item.json.choices)) {\n    return item.json.choices.map(choice => ({\n      json: {\n        message: choice.message?.content || \"No message found\"\n      }\n    }));\n  }\n  return [];\n});\n\n// Flatten the array and return the result\nreturn output.flat();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        -220
+      ],
+      "id": "c8d63610-dd0b-4d6f-b6c7-d1052e73be7b",
+      "name": "extract message"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.play.ht/api/v2/tts",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n   \"Authorization\": \"Bearer 9b4fd61ee2a84eab88227273279e8c87\",\n   \"X-User-ID\": \"MdiUqmmcxdd86buZuvjAPn7l4Bh1\",\n   \"Content-Type\": \"application/json\"\n}\n",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n   \"voice\": \"s3://voice-cloning-zero-shot/65977f5e-a22a-4b36-861b-ecede19bdd65/original/manifest.json\",\n   \"text\": \"{{ $json.choices[0].message.content }}\",\n   \"output_format\": \"mp3\"\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        20
+      ],
+      "id": "0d891abd-768e-4310-8ac2-966caa0fe108",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1340,
+        -80
+      ],
+      "id": "028b8e5f-53ce-4073-8b70-a81dc4777299",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.assemblyai.com/v2/transcript",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"authorization\": \"6b453318f4a647459b649f91d97a4cbe\",\n  \"content-type\": \"application/json\"\n}\n",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"audio_url\": \"{{ $json.url }}\"\n}\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1580,
+        -80
+      ],
+      "id": "48fd6241-abea-4089-b337-a695606f0bda",
+      "name": "Request Transcription"
+    },
+    {
+      "parameters": {
+        "amount": 45
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        120
+      ],
+      "id": "38d2d99c-dcf0-4849-b48b-5b574cb7924b",
+      "name": "Wait1",
+      "webhookId": "11232a53-109e-4dc6-8823-44f1e03b57a3"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "text",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        600,
+        320
+      ],
+      "id": "b7b84543-0d94-4570-a242-0752a467b82b",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "choices[0].message.content",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        940,
+        320
+      ],
+      "id": "71287984-3c07-4c8f-ab04-aedf8387e286",
+      "name": "Split Out1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.together.xyz/v1/chat/completions",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\",\n  \"Authorization\": \"Bearer 0062172dd9c32182d7bd7c6cc134d1e2d53cd7bba02ebb8e528046c1634b733f\"\n}\n",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"black-forest-labs/FLUX.1-schnell-Free\",\n  \"prompt\": \"{{ $json[\"choices[0].message.content\"].replaceAll('\\\"','') }}\" ,\n  \"negative_prompt\": \"text, watermark, signature, paragraph, wording, letters, symbols, illegal, prohibited, sexual, graphic, violence, gore, blood, disturbing\",\n  \"width\": 1024,\n  \"height\": 1024,\n  \"steps\": 4,\n  \"n\": 1,\n  \"response_format\": \"b64_json\"\n}\n",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 20000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        320
+      ],
+      "id": "b74d1263-27e5-4890-89a0-6c18034a2c09",
+      "name": "Get Image base 64"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization ",
+              "value": "Bearer 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"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"llama-3.3-70b-versatile\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"you are an image prompt designer, your task is to convert the following transcript text into image prompt for image generation model.\\n\\nHere are the style of the image:\\nStyle: Hyperrealism, 8k\\n\\n***Output the prompt directly without Image Prompt.\\n***Don't include \\\",', couble quotes and single quotes\"\n    },\n    \n    {\"role\": \"user\", \"content\": \"{{ $json.text.replaceAll(\"\\\"\",\"\") }}\"}\n  ],\n  \"temperature\": 0.8,\n  \"max_tokens\": 40,\n  \"stream\": false\n}\n ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        760,
+        320
+      ],
+      "id": "30d98db2-fd76-4f10-9511-beac929b8770",
+      "name": "convert to Flux prompt",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "output.choices[0].image_base64",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        320
+      ],
+      "id": "df9c36c6-e2c1-4593-86bc-dea58a7ae80d",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1460,
+        320
+      ],
+      "id": "315470e1-adf0-4443-a08a-7f7c0b5eb39e",
+      "name": "Wait2",
+      "webhookId": "61d063a6-404b-487b-8a2c-1692a30bfd3b"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.assemblyai.com/v2/transcript/{{ $json.id }}",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"authorization\": \"6b453318f4a647459b649f91d97a4cbe\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1500,
+        120
+      ],
+      "id": "2f5215a4-6b32-4e17-a64e-f14ee25ad3cf",
+      "name": "Get Transcription"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1oZTPDVpaLWi1x13Ux4DVNIJt2Y-7UQ0J7FeUaXfjyc8/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "=https://docs.google.com/spreadsheets/d/1oZTPDVpaLWi1x13Ux4DVNIJt2Y-7UQ0J7FeUaXfjyc8/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "url"
+          ],
+          "schema": [
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "duration",
+              "displayName": "duration",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "size",
+              "displayName": "size",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1580,
+        -280
+      ],
+      "id": "a3230205-4559-4ef9-9bdb-6baa46e755d3",
+      "name": "save audio and whole script",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.first().json.words;\n\nlet result = [];\nlet currentGroup = [];\nlet groupStartTime = items[0].start;\nlet groupEndTime = items[0].end;\nlet index = 1;\n\nfor (let i = 0; i < items.length; i++) {\n    let word = items[i];\n\n    if (word.start - groupStartTime > 5000) {\n        result.push({ json: { \n            index: index++, \n            text: currentGroup.join(\" \"), \n            start: groupStartTime, \n            end: groupEndTime \n        }});\n\n        currentGroup = []; \n        groupStartTime = word.start; \n    }\n\n    currentGroup.push(word.text);\n    groupEndTime = word.end;\n}\n\n// Add last group\nif (currentGroup.length > 0) {\n    result.push({ json: { \n        index: index++, \n        text: currentGroup.join(\" \"), \n        start: groupStartTime, \n        end: groupEndTime \n    }});\n}\n\nreturn result;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        320
+      ],
+      "id": "ab285c2d-eeb5-4156-85a9-e60903b0165d",
+      "name": "regroup into chunks"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1VLFTLOxjXE8tl64qrHW8P7gFefob1XBSi85tR0SV2YY/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1VLFTLOxjXE8tl64qrHW8P7gFefob1XBSi85tR0SV2YY/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "combineFilters": "OR",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        280,
+        -300
+      ],
+      "id": "68dec3ed-b661-44d2-9827-5e09d40e0925",
+      "name": "hashtags",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 20
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        180,
+        940
+      ],
+      "id": "83201db0-bf49-4f40-9813-9f9fced52eb2",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        400,
+        940
+      ],
+      "id": "95519914-65b6-4654-83c9-cae3aefe3835",
+      "name": "Grab Videos",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        580,
+        940
+      ],
+      "id": "35d34e6d-a051-4081-9f52-34cb12f82f19",
+      "name": "download the video"
+    },
+    {
+      "parameters": {
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.twitter",
+      "typeVersion": 2,
+      "position": [
+        780,
+        940
+      ],
+      "id": "7bdc114b-6e2b-403e-a251-4e4084531b68",
+      "name": "X",
+      "credentials": {
+        "twitterOAuth2Api": {
+          "id": "KHEJTp1EYphYhIn6",
+          "name": "X account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [
+            "video url"
+          ],
+          "schema": [
+            {
+              "id": "video url",
+              "displayName": "video url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1000,
+        940
+      ],
+      "id": "4f0373c9-c87b-470f-814d-42afa6e17a08",
+      "name": "update video status",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Video Upload\n",
+        "height": 280,
+        "width": 1240,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        60,
+        860
+      ],
+      "id": "ffa588ad-ca6e-4b6a-9bb8-8bedb1e8649a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Creating Post\n",
+        "height": 1160,
+        "width": 1780,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        20,
+        -480
+      ],
+      "id": "4904d1e1-8cbd-4a1c-884d-bcf77cae766c",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "subtitles": "={{ $json.text }}"
+          },
+          "matchingColumns": [
+            "video url"
+          ],
+          "schema": [
+            {
+              "id": "subtitles",
+              "displayName": "subtitles",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "related_image",
+              "displayName": "related_image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        600,
+        480
+      ],
+      "id": "becdea26-1da5-4280-a5b3-3f4b1000b5a6",
+      "name": "subtitles",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1AQz5GsLzMsjGSvvYFZ62_6qcfHhZhG5_cYj_g4e8ADo/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "subtitles": "=",
+            "related_image": "https://zindidlh.app.n8n.cloud/rest/binary-data?id=filesystem-v2%3Aworkflows%2FFQY3UXiTPff8veGR%2Fexecutions%2F255%2Fbinary_data%2Ffc2aa1a7-c8c8-4a6f-bbaf-29cb613b409c&action=view&fileName=file.jpg&mimeType=image%2Fjpeg"
+          },
+          "matchingColumns": [
+            "video url"
+          ],
+          "schema": [
+            {
+              "id": "subtitles",
+              "displayName": "subtitles",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "related_image",
+              "displayName": "related_image",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1480,
+        480
+      ],
+      "id": "b3c367d3-42c8-4343-b5e3-aa08efc2f226",
+      "name": "images",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xDLx9S8NNj0Vrbne",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "hashtags",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Video Category": {
+      "main": [
+        [
+          {
+            "node": "Groq",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Groq": {
+      "main": [
+        [
+          {
+            "node": "extract message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "extract url playht",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "extract url playht": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "extract message": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Request Transcription",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "save audio and whole script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Request Transcription": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Get Transcription",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "convert to Flux prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Get Image base 64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert to Flux prompt": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Image base 64": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "images",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        []
+      ]
+    },
+    "Get Transcription": {
+      "main": [
+        [
+          {
+            "node": "regroup into chunks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "save audio and whole script": {
+      "main": [
+        []
+      ]
+    },
+    "regroup into chunks": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "subtitles",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "hashtags": {
+      "main": [
+        [
+          {
+            "node": "Video Category",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Grab Videos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Grab Videos": {
+      "main": [
+        [
+          {
+            "node": "download the video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download the video": {
+      "main": [
+        [
+          {
+            "node": "X",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "X": {
+      "main": [
+        [
+          {
+            "node": "update video status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "22cb39e5-9e6d-40cf-9b28-cdd062c390fb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9c7351ca538b5dc9bdf4598f5b589eab64fab96bc1407d6127412310e30b2afb"
+  },
+  "id": "FQY3UXiTPff8veGR",
+  "tags": []
+}
